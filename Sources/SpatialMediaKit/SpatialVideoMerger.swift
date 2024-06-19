@@ -51,12 +51,14 @@ public class SpatialVideoMerger {
     colorMatrix: String,
     hFov: Int,
     hDisparityAdj: Int?,
-    leftIsPrimary: Bool
+    leftIsPrimary: Bool,
+    colorDepth: Int
   )
     -> (
       AVAssetWriter, AVAssetWriterInputTaggedPixelBufferGroupAdaptor
     )
   {
+      let profileLevel = colorDepth == 10 ? "HEVCMain10" : "HEVCMain"
 
     let assetWriter = try! AVAssetWriter(
       outputURL: outputUrl,
@@ -242,7 +244,8 @@ public class SpatialVideoMerger {
     quality: Float,
     horizontalFieldOfView: Int,
     horizontalDisparityAdjustment: Int?,
-    leftIsPrimary: Bool
+    leftIsPrimary: Bool,
+    colorDepth: Int
   ) {
     do {
       let leftSourceMovieUrl = URL(fileURLWithPath: leftFilePath)
@@ -317,7 +320,9 @@ public class SpatialVideoMerger {
         outputFrameRate: leftFrameRate, videoQuality: quality,
         colorPrimaries: colorPrimaries, transferFunction: transferFunction,
         colorMatrix: colorMatrix, hFov: horizontalFieldOfView,
-        hDisparityAdj: horizontalDisparityAdjustment, leftIsPrimary: leftIsPrimary)
+        hDisparityAdj: horizontalDisparityAdjustment, leftIsPrimary: leftIsPrimary,
+        colorDepth: colorDepth
+      )
 
       let semaphore = DispatchSemaphore(value: 0)
 

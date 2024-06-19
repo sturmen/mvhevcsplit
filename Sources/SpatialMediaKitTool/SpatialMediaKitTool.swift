@@ -80,6 +80,9 @@ extension SpatialMediaKitTool {
     @Flag(help: "Set the right file as the \"hero\" stream that is displayed when viewing in 2D.")
     var rightIsPrimary: Bool = false
 
+    @Option(name: .shortAndLong, help: "Set the color depth of the output file.")
+    var colorDepth: Int = 8
+
     @Option(
       name: .long,
       help:
@@ -133,7 +136,9 @@ extension SpatialMediaKitTool {
         quality: qualityFloat,
         horizontalFieldOfView: Int(horizontalFieldOfView * 1000),
         horizontalDisparityAdjustment: horizontalDisparityAdjustment,
-        leftIsPrimary: leftIsPrimary)
+        leftIsPrimary: leftIsPrimary,
+        colorDepth: colorDepth
+      )
     }
   }
 }
