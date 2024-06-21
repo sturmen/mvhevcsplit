@@ -58,7 +58,7 @@ public class SpatialVideoMerger {
       AVAssetWriter, AVAssetWriterInputTaggedPixelBufferGroupAdaptor
     )
   {
-      let profileLevel = colorDepth == 10 ? kVTProfileLevel_HEVC_Main_AutoLevel : kVTProfileLevel_HEVC_Main10_AutoLevel
+      let profileLevel = colorDepth == 10 ? kVTProfileLevel_HEVC_Main10_AutoLevel : kVTProfileLevel_HEVC_Main_AutoLevel
 
     let assetWriter = try! AVAssetWriter(
       outputURL: outputUrl,
