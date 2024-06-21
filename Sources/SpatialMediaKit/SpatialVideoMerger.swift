@@ -58,7 +58,7 @@ public class SpatialVideoMerger {
       AVAssetWriter, AVAssetWriterInputTaggedPixelBufferGroupAdaptor
     )
   {
-      let profileLevel = colorDepth == 10 ? "HEVCMain10" : "HEVCMain"
+      let profileLevel = colorDepth == 10 ? kVTProfileLevel_HEVC_Main_AutoLevel : kVTProfileLevel_HEVC_Main10_AutoLevel
 
     let assetWriter = try! AVAssetWriter(
       outputURL: outputUrl,
@@ -79,7 +79,7 @@ public class SpatialVideoMerger {
       ],
       AVVideoCompressionPropertiesKey: [
         kVTCompressionPropertyKey_HDRMetadataInsertionMode: kVTHDRMetadataInsertionMode_Auto,
-        kVTCompressionPropertyKey_ProfileLevel: kVTProfileLevel_HEVC_Main10_AutoLevel,
+        kVTCompressionPropertyKey_ProfileLevel: profileLevel,
         kVTCompressionPropertyKey_Quality: videoQuality,
         kVTCompressionPropertyKey_PreserveDynamicHDRMetadata: true,
         kVTCompressionPropertyKey_MVHEVCVideoLayerIDs: [0, 1] as CFArray,
