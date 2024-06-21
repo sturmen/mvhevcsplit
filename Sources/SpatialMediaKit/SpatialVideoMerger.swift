@@ -51,12 +51,14 @@ public class SpatialVideoMerger {
     colorMatrix: String,
     hFov: Int,
     hDisparityAdj: Int?,
-    leftIsPrimary: Bool
+    leftIsPrimary: Bool,
+    colorDepth: Int
   )
     -> (
       AVAssetWriter, AVAssetWriterInputTaggedPixelBufferGroupAdaptor
     )
   {
+      let profileLevel = colorDepth == 10 ? kVTProfileLevel_HEVC_Main10_AutoLevel : kVTProfileLevel_HEVC_Main_AutoLevel
 
     let assetWriter = try! AVAssetWriter(
       outputURL: outputUrl,
@@ -77,7 +79,7 @@ public class SpatialVideoMerger {
       ],
       AVVideoCompressionPropertiesKey: [
         kVTCompressionPropertyKey_HDRMetadataInsertionMode: kVTHDRMetadataInsertionMode_Auto,
-        kVTCompressionPropertyKey_ProfileLevel: kVTProfileLevel_HEVC_Main10_AutoLevel,
+        kVTCompressionPropertyKey_ProfileLevel: profileLevel,
         kVTCompressionPropertyKey_Quality: videoQuality,
         kVTCompressionPropertyKey_PreserveDynamicHDRMetadata: true,
         kVTCompressionPropertyKey_MVHEVCVideoLayerIDs: [0, 1] as CFArray,
@@ -242,7 +244,8 @@ public class SpatialVideoMerger {
     quality: Float,
     horizontalFieldOfView: Int,
     horizontalDisparityAdjustment: Int?,
-    leftIsPrimary: Bool
+    leftIsPrimary: Bool,
+    colorDepth: Int
   ) {
     do {
       let leftSourceMovieUrl = URL(fileURLWithPath: leftFilePath)
@@ -317,7 +320,9 @@ public class SpatialVideoMerger {
         outputFrameRate: leftFrameRate, videoQuality: quality,
         colorPrimaries: colorPrimaries, transferFunction: transferFunction,
         colorMatrix: colorMatrix, hFov: horizontalFieldOfView,
-        hDisparityAdj: horizontalDisparityAdjustment, leftIsPrimary: leftIsPrimary)
+        hDisparityAdj: horizontalDisparityAdjustment, leftIsPrimary: leftIsPrimary,
+        colorDepth: colorDepth
+      )
 
       let semaphore = DispatchSemaphore(value: 0)
 

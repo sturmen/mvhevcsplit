@@ -62,6 +62,8 @@ OPTIONS:
   -r, --right-file <right-file>
                           The right eye media file to merge.
   -q, --quality <quality> Output video quality [0-100]. 50 is a good default value.
+  -c, --color-depth <color-depth>
+                          Set the color depth of the output file. (default: 8)
   --left-is-primary       Set the left file as the "hero" stream that is displayed when viewing in 2D.
   --right-is-primary      Set the right file as the "hero" stream that is displayed when viewing in 2D.
   --horizontal-field-of-view <horizontal-field-of-view>
